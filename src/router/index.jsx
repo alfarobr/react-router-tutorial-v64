@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Home from "../pages/home";
 import About from "../pages/about";
 import Blog, { loaderBlog } from "../pages/Blog";
+import Post, { loaderPost } from "../pages/Post";
 import NotFound from "../pages/NotFound";
 import LayoutPublic from "../layout/LayoutPublic";
 
@@ -12,17 +13,27 @@ export const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       {
-        index: true,
-        element: <Home />,
-      },
-      {
-        path: "/about",
-        element: <About />,
-      },
-      {
-        path: "/blog",
-        element: <Blog />,
-        loader: loaderBlog,
+        errorElement: <NotFound />,
+        children: [
+          {
+            index: true,
+            element: <Home />,
+          },
+          {
+            path: "/about",
+            element: <About />,
+          },
+          {
+            path: "/blog",
+            element: <Blog />,
+            loader: loaderBlog,
+          },
+          {
+            path: "/blog/:id",
+            element: <Post />,
+            loader: loaderPost,
+          },
+        ],
       },
     ],
   },
